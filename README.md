@@ -1,6 +1,6 @@
-# DNNOM: A Hybrid-Sampling Optimization Framework
+# Nonconvex and Nonsmooth Optimization Framework via Decoupled Collaboration for Imbalanced Classification with Label Noise
 
-Official implementation of the paper:  **"DNNOM: A Hybrid-Sampling Optimization Framework Comprising Dual Nonconvex and Nonsmooth Optimization Models for Imbalanced Noise Classification"** .
+Official implementation of the paper:  **"Nonconvex and Nonsmooth Optimization Framework via Decoupled Collaboration for Imbalanced Classification with Label Noise"** .
 
 ![Python](https://img.shields.io/badge/Python-3.8-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
