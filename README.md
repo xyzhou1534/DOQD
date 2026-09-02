@@ -1,6 +1,6 @@
-# Nonconvex and Nonsmooth Optimization Framework via Decoupled Collaboration for Imbalanced Classification with Label Noise
+# DOQD: Decoupled Optimization of Sampling Quantities and Synthetic Feature Distributions for Noisy Imbalanced Learning
 
-Official implementation of the paper:  **"Nonconvex and Nonsmooth Optimization Framework via Decoupled Collaboration for Imbalanced Classification with Label Noise"** .
+Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampling Quantities and Synthetic Feature Distributions for Noisy Imbalanced Learning"** .
 
 ![Python](https://img.shields.io/badge/Python-3.8-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
