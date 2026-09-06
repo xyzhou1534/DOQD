@@ -10,7 +10,7 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 ## 📖 Overview
 
-**DNNOM** (Dual Nonconvex and Nonsmooth Optimization Models) is a robust hybrid-sampling framework designed to tackle the joint challenge of **class imbalance** and  **label noise** . Unlike traditional heuristic resampling (like SMOTE or Random Undersampling), DNNOM treats sampling as a formal optimization problem. The flowchart for **DNNOM** is as follows.
+**DOQD** (Decoupled Optimization of Sampling Quantities and Synthetic Feature Distributions) is a robust hybrid-sampling framework designed to tackle the joint challenge of **class imbalance** and  **label noise** . Unlike traditional heuristic resampling, DOQD treats sampling as a formal optimization problem. The flowchart for **DOQD** is as follows.
 
 ![flowchart](__pycache__/figs/flowchart.png)
 
@@ -18,9 +18,9 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 - Supports multiple sampling strategies:
 
-  - Oversampling: SMOTE, BorderlineSMOTE, SVMSMOTE, RandomOverSampler, SMOTEN
-  - Undersampling: RandomUnderSampler, NearMiss, ClusterCentroids
-- Plug-and-play **DNNOM framework** for distribution regularization
+  - Oversampling: SMOTE, BorderlineSMOTE, SVMSMOTE, RandomOverSampler, SMOTEN, DG-SMOTE, DeepSMOTE
+  - Undersampling: RandomUnderSampler, NearMiss, ClusterCentroids, SDUS
+- Plug-and-play **DOQD framework** for distribution regularization
 - Compatible with various classifiers:
 
   - AdaBoost, DTree, GBDT, KNN, LR, SVM, LightGBM, XGBoost
@@ -28,10 +28,10 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 **Key Contributions:**
 
-1) We propose an optimization model for binary classification hybrid-sampling. By jointly optimizing the quantities of undersampling and oversampling, it achieves an optimal balance between majority and minority class, transforming the hybrid-sampling problem into a solvable convex optimization problem.
-2) item To derive theoretically optimal undersampling and oversampling rates, we combine information theory with probability distribution divergence (e.g. KL divergence). We design objective and constraint functions based on data complexity and class overlap, constructing a convex optimization model whose optimal solution existence and uniqueness are proven.
-3) To mitigate the impact of noisy samples and ensure synthetic samples closely approach the safety region of minority class, we propose an adaptive feature optimization model. By maximizing the KL divergence between the probability distributions of original features and sampled samples, we compute the optimal location for new samples. This effectively alleviates noise and boundary blurring issues introduced by random sampling.
-4) Comparative experiments across dozens of public datasets and varying noise settings against multiple mainstream sampling methods and frameworks demonstrate that the proposed optimization framework outperforms existing approaches in both classification performance and robustness, while exhibiting strong generalization capabilities and classifier independence.
+1) We propose a decoupled yet synergistic optimization framework (DOQD) for hybrid sampling. It consists of two  non-convex optimization models and is a general optimization mechanism that can be applied to various datasets and hybrid sampling. The characteristics of the datasets are quantified from multiple perspectives, and class imbalance and label noise are modeled as non-convex optimization problems. Through complementary optimization of sampling quantities and synthetic feature distributions, DOQD simultaneously addresses distributional rebalancing and noise-aware sample generation.
+2) The first model is designed to derive theoretically optimal undersampling and oversampling rates. We design  adaptive prior bias, structural bias, and penalty terms. Multi-variate objective and constraint functions are proposed based on data complexity and class overlap, constructing a non-convex optimization model. We further establish the existence of a global optimum over the feasible domain.
+3) The second model is designed to mitigate the impact of noisy samples and ensure synthetic samples closely approach the safety region of the minority class. By maximizing the KL divergence between the probability distributions of original features and sampled samples, it mathematically governs the synthetic feature space under strict anisotropic support constraints. This effectively alleviates noise and boundary-blurring issues introduced by random sampling.
+4) Comparative experiments across 17 of public datasets and varying noise settings against multiple mainstream  sampling methods and frameworks demonstrate that the proposed optimization framework consistently improves the overall performance of diverse hybrid sampling strategies and exhibits competitive robustness across different classifiers.
 
 ## 📂 Project Structure
 ├── figs/
@@ -58,7 +58,7 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 ├── __api_experiments.cpython-38.pyc
 
-├── _api_DNNOM_BU.cpython-38.pyc
+├── _api_DOQD_BU.cpython-38.pyc
 
 ├── api.cpython-38.pyc
 
@@ -66,9 +66,9 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 ├── api_OBHRF.cpython-38.pyc
 
-├── DNNOM_BH.cpython-38.pyc
+├── DOQD_BH.cpython-38.pyc
 
-├── DNNOM_BO.cpython-38.pyc
+├── DOQD_BO.cpython-38.pyc
 
 ├── draw_BH.cpython-38.pyc
 
@@ -87,8 +87,8 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 ```bash
 # Clone the repository
-git clone https://github.com/xyzhou1534/DNNOM.git
-cd DNNOM
+git clone https://github.com/xyzhou1534/DOQD.git
+cd DOQD
 
 # Install dependencies
 pip install -r requirements.txt
@@ -96,9 +96,9 @@ pip install -r requirements.txt
 
 ## 🧪 Experimental Settings
 
-The performance of **DNNOM** for classification is evaluated and compare with currently available resamplers, as well as without any resampling. This section conducts simulation experiments under the following experimental settings. Moreover, all experiments are conducted on a Ubuntu 22.04 with an Intel e5-1650v4 CPU and $32$ GB of RAM.
+The performance of **DOQD** for classification is evaluated and compare with currently available resamplers, as well as without any resampling. This section conducts simulation experiments under the following experimental settings. Moreover, all experiments are conducted on a Ubuntu 22.04 with an Intel e5-1650v4 CPU and $32$ GB of RAM.
 
-**Datasets:** All actual datasets were obtained from the UCI (https://archive.ics.uci.edu/datasets) and KEEL (http://sci2s.ugr.es/keel/imbalanced.php) library. **DNNOM** focuses on binary classification tasks, thus employing the OVR method to convert multiclass datasets into binary formats. Experiments encompassed multiple datasets with varying sample sizes from small to large, dimensions from low to high and imbalance rates from low to high. Detailed dataset information is asfollows.
+**Datasets:** All actual datasets were obtained from the UCI (https://archive.ics.uci.edu/datasets) and KEEL (http://sci2s.ugr.es/keel/imbalanced.php) library. **DOQD** focuses on binary classification tasks, thus employing the OVR method to convert multiclass datasets into binary formats. Experiments encompassed multiple datasets with varying sample sizes from small to large, dimensions from low to high and imbalance rates from low to high. Detailed dataset information is asfollows.
 
 ![dataset_info](__pycache__/figs/dataset_info.png)
 
@@ -114,33 +114,33 @@ Information of Classifier parameters.
 
 ## 📊 Experimental Results
 
-- The ablation experiment for **DNNOM** is visualized as follows.
+- The ablation experiment for **DOQD** is visualized as follows.
 
   ![visual](__pycache__/figs/visual.png)
-- The comparative trial of DNNOM is as follows: Average results based on 17 datasets, 8 classifier, 5 metrics, and 15 samplers at η ∈ {0.05, 0.15, 0.25, 0.35, 0.45} (Each numerical result is presented as"mean"±"variance". The "↑" indicates that a larger value of a metric is better. Performance improvements achieved by the DNNOM framework are highlighted in green. For each metric at different η, the worst value in a column is marked in yellow while the best value is marked in red, both colors will overlay the green.
+- The comparative trial of DOQD is as follows: Average results based on 17 datasets, 8 classifier, 5 metrics, and 15 samplers at η ∈ {0.05, 0.15, 0.25, 0.35, 0.45} (Each numerical result is presented as"mean"±"variance". The "↑" indicates that a larger value of a metric is better. Performance improvements achieved by the DOQD framework are highlighted in green. For each metric at different η, the worst value in a column is marked in yellow while the best value is marked in red, both colors will overlay the green.
 
   ![comparison](__pycache__/figs/comparison.png)
-- Friedman statistical experiment for DNNOM is as follows.
+- Friedman statistical experiment for DOQD is as follows.
 
   ![friedman1](__pycache__/figs/friedman1.png)
 
   ![friedman1_1](__pycache__/figs/friedman1_1.png)
 
-  The mean rank of evaluated classifiers for different metrics at η = 0.15 & 0.25. (The light red and light blue represent the original sampling algorithm and the DNNOM framework’s optimized mean ranking at η = 0.15 respectively. Similarly, the dark red and dark blue represent the mean ranking at η = 0.25 respectively.)
+  The mean rank of evaluated classifiers for different metrics at η = 0.15 & 0.25. (The light red and light blue represent the original sampling algorithm and the DOQD framework’s optimized mean ranking at η = 0.15 respectively. Similarly, the dark red and dark blue represent the mean ranking at η = 0.25 respectively.)
 
 ![friedman2](__pycache__/figs/friedman2.png)
 
 ![friedman2_2](__pycache__/figs/friedman2_2.png)
 
-The mean rank of evaluated classifiers for different metrics at η = 0.15 & 0.25. (The light yellow and light purple represent the original sampling algorithm and the DNNOM framework’s optimized mean ranking at η = 0.15 respectively. Similarly, the dark yellow and dark purple represent the mean ranking at η = 0.25 respectively.)
+The mean rank of evaluated classifiers for different metrics at η = 0.15 & 0.25. (The light yellow and light purple represent the original sampling algorithm and the DOQD framework’s optimized mean ranking at η = 0.15 respectively. Similarly, the dark yellow and dark purple represent the mean ranking at η = 0.25 respectively.)
 
 ## 🎓 Citation
 
 If you find this work helpful in your research, please cite:
 
 ```
-@article{yourname2026dnnom,
-  title={DNNOM: A Hybrid-Sampling Optimization Framework Comprising Dual Nonconvex and Nonsmooth Optimization Models for Imbalanced Noise Classification},
+@article{yourname2026DOQD,
+  title={DOQD: A Hybrid-Sampling Optimization Framework Comprising Dual Nonconvex and Nonsmooth Optimization Models for Imbalanced Noise Classification},
   author={X. Zhou and H. Zhou},
   journal={Knowl.-Based Syst.},
   year={2026}
