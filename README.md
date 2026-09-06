@@ -44,13 +44,9 @@ Official implementation of the paper:  **"DOQD: Decoupled Optimization of Sampli
 
 │      ├── flowchart.png
 
-│      ├── friedman1.png
+│      ├── friedman.png
 
-│      ├── friedman1_1.png
-
-│      ├── friedman2.png
-
-│      ├── friedman2_2.png
+│      ├── CD.png
 
 │      ├── sampler_para.png
 
@@ -122,27 +118,23 @@ Information of Classifier parameters.
   ![comparison](__pycache__/figs/comparison.png)
 - Friedman statistical experiment for DOQD is as follows.
 
-  ![friedman1](__pycache__/figs/friedman1.png)
+  ![friedman1](__pycache__/figs/friedman.png)
 
-  ![friedman1_1](__pycache__/figs/friedman1_1.png)
+  The Friedman mean rank of evaluated classifiers for different metrics.
 
-  The mean rank of evaluated classifiers for different metrics at η = 0.15 & 0.25. (The light red and light blue represent the original sampling algorithm and the DOQD framework’s optimized mean ranking at η = 0.15 respectively. Similarly, the dark red and dark blue represent the mean ranking at η = 0.25 respectively.)
+  ![friedman1](__pycache__/figs/CD.png)
 
-![friedman2](__pycache__/figs/friedman2.png)
-
-![friedman2_2](__pycache__/figs/friedman2_2.png)
-
-The mean rank of evaluated classifiers for different metrics at η = 0.15 & 0.25. (The light yellow and light purple represent the original sampling algorithm and the DOQD framework’s optimized mean ranking at η = 0.15 respectively. Similarly, the dark yellow and dark purple represent the mean ranking at η = 0.25 respectively.)
+  Critical Difference diagrams comparing the average ranks of the original sampling methods and their DOQD-enhanced counterparts across Precision, AUC, F1, and G-mean.
 
 ## 🎓 Citation
 
 If you find this work helpful in your research, please cite:
 
 ```
-@article{yourname2026DOQD,
-  title={DOQD: A Hybrid-Sampling Optimization Framework Comprising Dual Nonconvex and Nonsmooth Optimization Models for Imbalanced Noise Classification},
+@article{Xyzhou_2026_DOQD,
+  title={DOQD: Decoupled Optimization of Sampling Quantities and Synthetic Feature Distributions for Noisy Imbalanced Learning},
   author={X. Zhou and H. Zhou},
-  journal={Knowl.-Based Syst.},
+  journal={Applied Soft Computing},
   year={2026}
 }
 ```
